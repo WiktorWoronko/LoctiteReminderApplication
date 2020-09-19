@@ -9,6 +9,7 @@ import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.datepicker.DatePicker;
 import com.vaadin.flow.component.formlayout.FormLayout;
+import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.BeanValidationBinder;
@@ -18,22 +19,21 @@ import pl.LoctiteRemainder.model.Adhesive;
 
 public class AdhesiveForm extends FormLayout {
 
-    private Adhesive adhesive;
 
-    TextField productName = new TextField("Nazwa produktu");
-    TextField idhNumber = new TextField("IDH produktu");
-    TextField amountOfProduct = new TextField("Ilość produktu");
-    DatePicker expiryDate = new DatePicker("Data ważności produktu");
-    DatePicker remindDate = new DatePicker("Data przypomnienia");
+    TextField productName = new TextField("Product name");
+    TextField idhNumber = new TextField("Product IDH");
+    TextField amountOfProduct = new TextField("Product amount");
+    DatePicker expiryDate = new DatePicker("Expiry date");
+    DatePicker remindDate = new DatePicker("Remind date");
 
-    Button save = new Button("Zapisz");
-    Button delete = new Button("Usuń");
-    Button close = new Button("Zamknij");
+    Button save = new Button("Save");
+    Button delete = new Button("Delete");
+    Button close = new Button("Close");
 
     Binder<Adhesive> binder = new BeanValidationBinder<>(Adhesive.class);
 
     public AdhesiveForm() {
-        addClassName("contact-form");
+        addClassName("adhesive-form");
 
         binder.bindInstanceFields(this);
 
@@ -82,10 +82,10 @@ public class AdhesiveForm extends FormLayout {
         binder.setBean(adhesive);
     }
 
-    public static abstract class ContactFormEvent extends ComponentEvent<AdhesiveForm> {
+    public static abstract class AdhesiveFormEvent extends ComponentEvent<AdhesiveForm> {
         private Adhesive adhesive;
 
-        protected ContactFormEvent(AdhesiveForm source, Adhesive adhesive) {
+        protected AdhesiveFormEvent(AdhesiveForm source, Adhesive adhesive) {
             super(source, false);
             this.adhesive = adhesive;
         }
@@ -95,14 +95,14 @@ public class AdhesiveForm extends FormLayout {
         }
     }
 
-    public static class SaveEvent extends ContactFormEvent {
+    public static class SaveEvent extends AdhesiveFormEvent {
         SaveEvent(AdhesiveForm source, Adhesive adhesive) {
 
             super(source, adhesive);
         }
     }
 
-    public static class DeleteEvent extends ContactFormEvent {
+    public static class DeleteEvent extends AdhesiveFormEvent {
 
         DeleteEvent(AdhesiveForm source, Adhesive adhesive) {
 
@@ -111,7 +111,7 @@ public class AdhesiveForm extends FormLayout {
 
     }
 
-    public static class CloseEvent extends ContactFormEvent {
+    public static class CloseEvent extends AdhesiveFormEvent {
         CloseEvent(AdhesiveForm source) {
             super(source, null);
         }

@@ -1,30 +1,20 @@
 package pl.LoctiteRemainder.service;
 
+import com.vaadin.flow.component.notification.Notification;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.event.ApplicationReadyEvent;
-import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
 import pl.LoctiteRemainder.model.Adhesive;
 import pl.LoctiteRemainder.repository.AdhesiveRepository;
 
-import javax.annotation.PostConstruct;
 import javax.swing.*;
-import javax.swing.text.AbstractDocument;
 import java.awt.*;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-import java.util.Random;
-import java.util.logging.Logger;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
+
 
 @Service
 public class AdhesiveService {
-
-    private static final Logger LOGGER = Logger.getLogger(AdhesiveService.class.getName());
-
 
     private AdhesiveRepository adhesiveRepository;
     private final EmailService emailService;
@@ -38,29 +28,29 @@ public class AdhesiveService {
     public void sendRemindEmail() {
         JLabel myLabel = new JLabel();
         myLabel.setFont(myLabel.getFont().deriveFont(Font.PLAIN));
-        List<Adhesive> listOfExpiredProducts = compare();
-        if (listOfExpiredProducts.isEmpty()) {
-            System.out.println("Brak produktów przeterminowanych");
+        List<Adhesive> listOfProductsToRemind = compareRemindDatesWithCurrentTimeOrPastTime();
+        if (listOfProductsToRemind.isEmpty()) {
+            Notification.show("There are no products with given reminder dates ");
         } else {
-            emailService.sendSimpleMessage("odebranetest95@gmail.com",
-                    "Aktualna lista towarów zagrożona przeterminowaniem",
-                    "Produkty zbliżające się do swojego terminu ważności: \n" + listOfExpiredProducts.stream().map(n -> "Nazwa produktu: " + n.getProductName() + "  |  Numer IDH: " + n.getIdhNumber() + "  |  Ilość produktu: " + n.getAmountOfProduct() + "  |  Data ważności: " + n.getExpiryDate()).collect(Collectors.joining("\n")));
+            emailService.sendSimpleMessage(emailService.chooseYourEmail(),
+                    "The current list of goods at risk of expiry",
+                    "Products approaching their expiry date: \n" + listOfProductsToRemind.stream().map(n -> "Product name: " + n.getProductName() + "  |  Product IDH: " + n.getIdhNumber() + "  |  Product amount: " + n.getAmountOfProduct() + "  |  Expiry date: " + n.getExpiryDate()).collect(Collectors.joining("\n")));
         }
     }
 
 
-    private List<Adhesive> compare() {
-        List<Adhesive> listOfAllProducts;
-        listOfAllProducts = adhesiveRepository.findAll();
+    private List<Adhesive> compareRemindDatesWithCurrentTimeOrPastTime() {
+        List<Adhesive> listOfDataBaseProducts;
+        listOfDataBaseProducts = adhesiveRepository.findAll();
 
-        List<Adhesive> listOfProductToRemind = listOfAllProducts.stream().filter(adh -> adh.getRemindDate().equals(LocalDate.now()) || adh.getRemindDate().isBefore(LocalDate.now())).collect(Collectors.toList());
+        List<Adhesive> listOfProductsToRemind = listOfDataBaseProducts.stream().filter(adh -> adh.getRemindDate().equals(LocalDate.now()) || adh.getRemindDate().isBefore(LocalDate.now())).collect(Collectors.toList());
 
 
-        return listOfProductToRemind;
+        return listOfProductsToRemind;
     }
 
 
-    public Adhesive save(Adhesive adhesive) {
+    public Adhesive saveAdhesive(Adhesive adhesive) {
         return adhesiveRepository.save(adhesive);
     }
 

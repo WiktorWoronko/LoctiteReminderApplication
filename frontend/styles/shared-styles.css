@@ -2,11 +2,11 @@
     display: flex;
 }
 
-.list-view .contact-form{
+.list-view .adhesive-form{
     flex:2;
 }
 
-.list-view .contact-form{
+.list-view .adhesive-form{
     flex:1;
     padding: var(--lumo-space-m);
 }
@@ -16,4 +16,12 @@
     .list-view.editing .adhesive-grid {
         display: none;
     }
+}
+.list-view .email-form{
+    flex:2;
+}
+
+.list-view .email-form{
+    flex:1;
+    padding: var(--lumo-space-m);
 }
