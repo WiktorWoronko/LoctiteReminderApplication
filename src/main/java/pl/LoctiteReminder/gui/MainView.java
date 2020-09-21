@@ -32,6 +32,7 @@ public class MainView extends VerticalLayout {
 
     Grid<Adhesive> grid = new Grid<>(Adhesive.class);
 
+
     TextField filterText = new TextField();
 
     public MainView(AdhesiveService adhesiveService, EmailService emailService) {
@@ -53,10 +54,11 @@ public class MainView extends VerticalLayout {
 
         content.addClassName("content");
         content.setSizeFull();
-        add(getToolBar(), content);
+        add(getToolBar(), content,emailForm);
 
         updateList();
         closeAdhesiveEditor();
+        closeEmailEditor();
     }
 
     private void deleteAdhesive(AdhesiveForm.DeleteEvent event) {
@@ -97,7 +99,7 @@ public class MainView extends VerticalLayout {
 
 
     private void saveEmail(EmailForm.SaveEvent evt) {
-        emailService.saveEmail(evt.getEmail());
+        emailService.saveEmailToDB(evt.getEmail());
         adhesiveService.sendRemindEmail();
 
         closeEmailEditor();
@@ -107,7 +109,8 @@ public class MainView extends VerticalLayout {
         editEmail(new Email());
         emailForm.addListener(EmailForm.SaveEvent.class, evt -> saveEmail(evt));
         emailForm.addListener(EmailForm.CloseEvent.class, e -> closeEmailEditor());
-        add(emailForm);
+
+
     }
 
     private void editEmail(Email email) {

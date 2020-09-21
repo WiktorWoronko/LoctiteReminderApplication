@@ -1,5 +1,6 @@
 package pl.LoctiteReminder.service;
 
+import com.vaadin.flow.component.notification.Notification;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
@@ -30,7 +31,7 @@ public class EmailService {
         emailSender.send(message);
     }
 
-    public Email saveEmail(Email email) {
+    public Email saveEmailToDB(Email email) {
         return emailRepository.save(email);
     }
 

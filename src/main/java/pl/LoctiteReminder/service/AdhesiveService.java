@@ -30,7 +30,7 @@ public class AdhesiveService {
         myLabel.setFont(myLabel.getFont().deriveFont(Font.PLAIN));
         List<Adhesive> listOfProductsToRemind = compareRemindDatesWithCurrentTimeOrPastTime();
         if (listOfProductsToRemind.isEmpty()) {
-            showConfirmNotification();
+            System.err.print("There are no products with given reminder dates ");
         } else {
             emailService.sendSimpleMessage(emailService.chooseYourEmail(),
                     "The current list of goods at risk of expiry",
@@ -66,11 +66,6 @@ public class AdhesiveService {
         } else {
             return adhesiveRepository.search(filterText);
         }
-    }
-
-    private Notification showConfirmNotification(){
-       return Notification.show("There are no products with given reminder dates ");
-
     }
 
 
