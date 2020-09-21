@@ -1,13 +1,10 @@
-package pl.LoctiteRemainder.repository;
+package pl.LoctiteReminder.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-import pl.LoctiteRemainder.model.Adhesive;
-
-import java.util.List;
+import pl.LoctiteReminder.model.Adhesive;
 
 @Repository
 public interface AdhesiveRepository extends JpaRepository<Adhesive,Integer> {

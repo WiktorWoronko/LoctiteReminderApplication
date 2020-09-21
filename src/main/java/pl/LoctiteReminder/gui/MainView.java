@@ -1,4 +1,4 @@
-package pl.LoctiteRemainder.gui;
+package pl.LoctiteReminder.gui;
 
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dependency.CssImport;
@@ -11,10 +11,10 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.value.ValueChangeMode;
 import com.vaadin.flow.router.Route;
-import pl.LoctiteRemainder.model.Adhesive;
-import pl.LoctiteRemainder.model.Email;
-import pl.LoctiteRemainder.service.AdhesiveService;
-import pl.LoctiteRemainder.service.EmailService;
+import pl.LoctiteReminder.model.Adhesive;
+import pl.LoctiteReminder.model.Email;
+import pl.LoctiteReminder.service.AdhesiveService;
+import pl.LoctiteReminder.service.EmailService;
 
 import java.util.Collection;
 
@@ -99,8 +99,8 @@ public class MainView extends VerticalLayout {
     private void saveEmail(EmailForm.SaveEvent evt) {
         emailService.saveEmail(evt.getEmail());
         adhesiveService.sendRemindEmail();
+
         closeEmailEditor();
-        Notification.show("Email has been sent");
     }
 
     private void sendEmail() {

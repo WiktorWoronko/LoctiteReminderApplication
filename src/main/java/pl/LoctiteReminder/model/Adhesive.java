@@ -1,7 +1,6 @@
-package pl.LoctiteRemainder.model;
+package pl.LoctiteReminder.model;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDate;

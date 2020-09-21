@@ -1,11 +1,5 @@
-package pl.LoctiteRemainder.controller;
+package pl.LoctiteReminder.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-import pl.LoctiteRemainder.model.Adhesive;
-import pl.LoctiteRemainder.service.AdhesiveService;
-
-import java.util.Optional;
 /*
 @RestController
 @RequestMapping("/remainder")

@@ -1,10 +1,10 @@
-package pl.LoctiteRemainder.service;
+package pl.LoctiteReminder.service;
 
 import com.vaadin.flow.component.notification.Notification;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pl.LoctiteRemainder.model.Adhesive;
-import pl.LoctiteRemainder.repository.AdhesiveRepository;
+import pl.LoctiteReminder.model.Adhesive;
+import pl.LoctiteReminder.repository.AdhesiveRepository;
 
 import javax.swing.*;
 import java.awt.*;
@@ -30,7 +30,7 @@ public class AdhesiveService {
         myLabel.setFont(myLabel.getFont().deriveFont(Font.PLAIN));
         List<Adhesive> listOfProductsToRemind = compareRemindDatesWithCurrentTimeOrPastTime();
         if (listOfProductsToRemind.isEmpty()) {
-            Notification.show("There are no products with given reminder dates ");
+            showConfirmNotification();
         } else {
             emailService.sendSimpleMessage(emailService.chooseYourEmail(),
                     "The current list of goods at risk of expiry",
@@ -66,6 +66,11 @@ public class AdhesiveService {
         } else {
             return adhesiveRepository.search(filterText);
         }
+    }
+
+    private Notification showConfirmNotification(){
+       return Notification.show("There are no products with given reminder dates ");
+
     }
 
 

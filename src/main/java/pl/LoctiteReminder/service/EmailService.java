@@ -1,10 +1,10 @@
-package pl.LoctiteRemainder.service;
+package pl.LoctiteReminder.service;
 
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
-import pl.LoctiteRemainder.model.Email;
-import pl.LoctiteRemainder.repository.EmailRepository;
+import pl.LoctiteReminder.model.Email;
+import pl.LoctiteReminder.repository.EmailRepository;
 import java.util.List;
 
 @Service
