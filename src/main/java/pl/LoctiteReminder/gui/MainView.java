@@ -50,11 +50,14 @@ public class MainView extends VerticalLayout {
         adhesiveForm.addListener(AdhesiveForm.DeleteEvent.class, evt -> deleteAdhesive(evt));
         adhesiveForm.addListener(AdhesiveForm.CloseEvent.class, evt -> closeAdhesiveEditor());
 
+        emailForm.addListener(EmailForm.SaveEvent.class, evt -> saveEmail(evt));
+        emailForm.addListener(EmailForm.CloseEvent.class, e -> closeEmailEditor());
+
         Div content = new Div(grid, adhesiveForm);
 
         content.addClassName("content");
         content.setSizeFull();
-        add(getToolBar(), content,emailForm);
+        add(getToolBar(), content, emailForm);
 
         updateList();
         closeAdhesiveEditor();
@@ -101,16 +104,12 @@ public class MainView extends VerticalLayout {
     private void saveEmail(EmailForm.SaveEvent evt) {
         emailService.saveEmailToDB(evt.getEmail());
         adhesiveService.sendRemindEmail();
-
+        Notification.show("Email has been sent");
         closeEmailEditor();
     }
 
     private void sendEmail() {
         editEmail(new Email());
-        emailForm.addListener(EmailForm.SaveEvent.class, evt -> saveEmail(evt));
-        emailForm.addListener(EmailForm.CloseEvent.class, e -> closeEmailEditor());
-
-
     }
 
     private void editEmail(Email email) {

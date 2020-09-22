@@ -30,11 +30,11 @@ public class AdhesiveService {
         myLabel.setFont(myLabel.getFont().deriveFont(Font.PLAIN));
         List<Adhesive> listOfProductsToRemind = compareRemindDatesWithCurrentTimeOrPastTime();
         if (listOfProductsToRemind.isEmpty()) {
-            System.err.print("There are no products with given reminder dates ");
+            Notification.show("There are no products with given reminder dates");
         } else {
             emailService.sendSimpleMessage(emailService.chooseYourEmail(),
                     "The current list of goods at risk of expiry",
-                    "Products approaching their expiry date: \n" + listOfProductsToRemind.stream().map(n -> "Product name: " + n.getProductName() + "  |  Product IDH: " + n.getIdhNumber() + "  |  Product amount: " + n.getAmountOfProduct() + "  |  Expiry date: " + n.getExpiryDate()).collect(Collectors.joining("\n")));
+                    "Products approaching their expiry date: \n \n" + listOfProductsToRemind.stream().map(n -> "Product name: " + n.getProductName() + "  |  Product IDH: " + n.getIdhNumber() + "  |  Product amount: " + n.getAmountOfProduct() + "  |  Expiry date: " + n.getExpiryDate()).collect(Collectors.joining("\n \n")));
         }
     }
 
