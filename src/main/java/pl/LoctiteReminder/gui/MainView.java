@@ -104,7 +104,6 @@ public class MainView extends VerticalLayout {
     private void saveEmail(EmailForm.SaveEvent evt) {
         emailService.saveEmailToDB(evt.getEmail());
         adhesiveService.sendRemindEmail();
-        Notification.show("Email has been sent");
         closeEmailEditor();
     }
 

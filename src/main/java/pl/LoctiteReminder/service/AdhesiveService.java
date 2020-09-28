@@ -28,27 +28,21 @@ public class AdhesiveService {
     public void sendRemindEmail() {
         JLabel myLabel = new JLabel();
         myLabel.setFont(myLabel.getFont().deriveFont(Font.PLAIN));
-        List<Adhesive> listOfProductsToRemind = compareRemindDatesWithCurrentTimeOrPastTime();
+        List<Adhesive> listOfProductsToRemind = compareRemindDatesWithCurrentTimeOrPastTime(adhesiveRepository.findAll());
         if (listOfProductsToRemind.isEmpty()) {
             Notification.show("There are no products with given reminder dates");
         } else {
             emailService.sendSimpleMessage(emailService.chooseYourEmail(),
                     "The current list of goods at risk of expiry",
                     "Products approaching their expiry date: \n \n" + listOfProductsToRemind.stream().map(n -> "Product name: " + n.getProductName() + "  |  Product IDH: " + n.getIdhNumber() + "  |  Product amount: " + n.getAmountOfProduct() + "  |  Expiry date: " + n.getExpiryDate()).collect(Collectors.joining("\n \n")));
+            Notification.show("Email has been sent");
         }
     }
 
 
-    private List<Adhesive> compareRemindDatesWithCurrentTimeOrPastTime() {
-        List<Adhesive> listOfDataBaseProducts;
-        listOfDataBaseProducts = adhesiveRepository.findAll();
-
-        List<Adhesive> listOfProductsToRemind = listOfDataBaseProducts.stream().filter(adh -> adh.getRemindDate().equals(LocalDate.now()) || adh.getRemindDate().isBefore(LocalDate.now())).collect(Collectors.toList());
-
-
-        return listOfProductsToRemind;
+    public List<Adhesive> compareRemindDatesWithCurrentTimeOrPastTime(List<Adhesive> list) {
+        return list.stream().filter(adh -> adh.getRemindDate().equals(LocalDate.now()) || adh.getRemindDate().isBefore(LocalDate.now())).collect(Collectors.toList());
     }
-
 
     public Adhesive saveAdhesive(Adhesive adhesive) {
         return adhesiveRepository.save(adhesive);
