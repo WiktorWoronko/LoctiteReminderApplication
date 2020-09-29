@@ -16,12 +16,12 @@ spring.datasource.username=<b>YOUR_DATABASE_LOGIN</b><br>
 spring.datasource.password=<b>YOUR_DATABASE_PASSWORD</b><br>
 
 2. For sending email you can use email:<br>
-<b>Email:</b> loctite.reminder@gmail.com <br>  
+<b>Email:</b> loctite.reminder@gmail.com 
 <b>Password:</b> loctite123
 
 You can use also your email, but you have to configure that.
 
-3. Spring security
+3. Spring security<br>
 <b>Login:</b> woronko <br>
 <b>Password:</b> loctite
 
