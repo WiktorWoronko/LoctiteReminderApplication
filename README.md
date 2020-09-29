@@ -15,15 +15,14 @@ spring.datasource.url=jdbc:mysql://${MYSQL_HOST:localhost}:3306/<b>YOUR_DATABASE
 spring.datasource.username=<b>YOUR_DATABASE_LOGIN</b><br>
 spring.datasource.password=<b>YOUR_DATABASE_PASSWORD</b><br>
 
-2. For sending email you can use email: 
-<b>email:</b> loctite.reminder@gmail.com <br>  
-<b>password:</b> loctite123
+2. For sending email you can use email:<br>
+<b>Email:</b> loctite.reminder@gmail.com <br>  
+<b>Password:</b> loctite123
 
 You can use also your email, but you have to configure that.
 
 3. Spring security
-
 <b>Login:</b> woronko <br>
 <b>Password:</b> loctite
 
-4. By default, the application runs on localhost:8080
+4. By default, the application runs on <b>localhost:8080</b>
