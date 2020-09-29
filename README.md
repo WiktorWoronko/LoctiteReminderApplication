@@ -10,8 +10,8 @@ To use this application you need to:
 
 1. Configure your database in application.properties
 
-spring.jpa.hibernate.ddl-auto=update
-spring.datasource.url=jdbc:mysql://${MYSQL_HOST:localhost}:3306/YOUR_DATABASE_?&serverTimezone=UTC
+spring.jpa.hibernate.ddl-auto=update <br>
+spring.datasource.url=jdbc:mysql://${MYSQL_HOST:localhost}:3306/YOUR_DATABASE_?&serverTimezone=UTC<br>
 spring.datasource.username=YOUR_DATABASE_LOGIN
 spring.datasource.password=YOUR_DATABASE_PASSWORD
 
